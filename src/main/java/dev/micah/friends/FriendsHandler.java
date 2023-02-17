@@ -3,7 +3,6 @@ package dev.micah.friends;
 import lombok.Getter;
 import lombok.NonNull;
 import org.bukkit.Bukkit;
-import org.bukkit.OfflinePlayer;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
 
@@ -133,14 +132,11 @@ public class FriendsHandler {
         List<UUID> executedFriends = friendsList.getOrDefault(executed.getUniqueId(), new ArrayList<>());
 
         // Null check
-        System.out.println(executedFriends);
         if (executedFriends.isEmpty()) return onlineFriends;
 
         // Loop through each friend and check if they're online, if they are add them to the list
         executedFriends.forEach(uuid -> {
-            System.out.println(uuid);
             Player user = Bukkit.getPlayer(uuid);
-            System.out.println(user);
             if (user.isOnline()) onlineFriends.add(user.getPlayer());
         });
 
