@@ -1,0 +1,10 @@
+name: Friends
+version: '${project.version}'
+main: dev.micah.friends.Friends
+commands:
+  friend:
+    description: View online friends or add a new friend.
+    aliases: [f]
+  unfriend:
+    description: Unfriend anybody who has added your or you added.
+    aliases: [unf]
