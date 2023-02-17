@@ -40,7 +40,7 @@ public final class Friends extends JavaPlugin {
 
     @Override
     public void onDisable() {
-        friendsHandler.flushInformation();
+
     }
 
     @SneakyThrows

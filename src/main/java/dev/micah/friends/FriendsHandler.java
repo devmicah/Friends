@@ -50,21 +50,6 @@ public class FriendsHandler {
     }
 
     /**
-     * Flush all information on disable to save
-     * resources and compute for next load.
-     */
-    public void flushInformation() {
-        // Get each key in the map
-        friendsList.keySet().forEach(uuid -> {
-            // Null check
-            if (friendsList.get(uuid).isEmpty()) return;
-            // Save their list of friends to the yml
-            config.set("registered-users." + uuid, friendsList.get(uuid));
-            Friends.saveFriendsConfig();
-        });
-    }
-
-    /**
      * Simple method that adds a new user
      * as a friend and saves the information.
      *
@@ -92,7 +77,7 @@ public class FriendsHandler {
         List<String> executedStringFriends = new ArrayList<>();
         List<String> targetedStringFriends = new ArrayList<>();
         executedFriends.forEach(uuid -> executedStringFriends.add(uuid.toString()));
-        targetedStringFriends.forEach(uuid -> targetedStringFriends.add(uuid.toString()));
+        targetedFriends.forEach(uuid -> targetedStringFriends.add(uuid.toString()));
 
         // Save information to yml
         config.set("registered-users." + executed.getUniqueId(), executedStringFriends);
@@ -148,11 +133,14 @@ public class FriendsHandler {
         List<UUID> executedFriends = friendsList.getOrDefault(executed.getUniqueId(), new ArrayList<>());
 
         // Null check
+        System.out.println(executedFriends);
         if (executedFriends.isEmpty()) return onlineFriends;
 
         // Loop through each friend and check if they're online, if they are add them to the list
         executedFriends.forEach(uuid -> {
-            OfflinePlayer user = Bukkit.getOfflinePlayer(uuid);
+            System.out.println(uuid);
+            Player user = Bukkit.getPlayer(uuid);
+            System.out.println(user);
             if (user.isOnline()) onlineFriends.add(user.getPlayer());
         });
 
