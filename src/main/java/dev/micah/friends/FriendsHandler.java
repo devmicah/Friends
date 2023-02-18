@@ -129,13 +129,17 @@ public class FriendsHandler {
         List<Player> onlineFriends = new ArrayList<>();
 
         // Find the users to check if they are online based on executors friends list.
-        List<UUID> executedFriends = friendsList.getOrDefault(executed.getUniqueId(), new ArrayList<>());
+        List<String> executedFriends = config.getStringList("registered-users." + executed.getUniqueId());
+
+        // Change the list of String to a list of UUID
+        List<UUID> uuidFriends = new ArrayList<>();
+        executedFriends.forEach(s -> uuidFriends.add(UUID.fromString(s)));
 
         // Null check
         if (executedFriends.isEmpty()) return onlineFriends;
 
         // Loop through each friend and check if they're online, if they are add them to the list
-        executedFriends.forEach(uuid -> {
+        uuidFriends.forEach(uuid -> {
             Player user = Bukkit.getPlayer(uuid);
             if (user.isOnline()) onlineFriends.add(user.getPlayer());
         });
